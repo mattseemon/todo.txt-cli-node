@@ -6,7 +6,7 @@
 
 <p align="center"> A cross platform command line interface for todo.txt. <br/></p>
 
-<p align="center"><br/>[ <a href="#getting_started">Getting Started</a> | <a href="#deployment">Deployment</a> | <a href="#powered_by">Powered by</a> | <a href="#credits">Credits</a> | <a href="#license">License</a> | <a href="#author">Author</a> ]<br/><br/></p>
+<p align="center"><br/>[ <a href="#getting_started">Getting Started</a> | <a href="#powered_by">Powered by</a> | <a href="#credits">Credits</a> | <a href="#license">License</a> | <a href="#author">Author</a> ]<br/><br/></p>
 
 <a name = "about"></a>
 Is a simple & easy way to manage your todo.txt from a command line.
