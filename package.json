@@ -1,0 +1,50 @@
+{
+    "name": "todo.txt-cli-node",
+    "version": "0.2.0",
+    "description": "A cross platform command line interface for todo.txt.",
+    "main": "src/cli.js",
+    "application": {
+        "title": "TODO.TXT Command Line Interface (CLI)",
+        "copyright": "(c) 2019 Matt Seemon. All rights reserved.",
+        "summary": "A cross platform command line interface for todo.txt.\n\nThis is a re-write of the todo.txt-cli by Gina Trapani. This implementation conforms to the todo.txt format specfication defined by Gina Trapani. For details of the todo.txt Format and the original todo.txt-cli see links below.\n\ntodo.txt Format: {blue https://github.com/todotxt/todo.txt}\ntodo.txt-cli: {blue https://github.com/todotxt/todo.txt-cli}\n\n{bold.green Powered by NodeJS.}",
+        "license": "This application is covered under the {bold.yellow %s} License. See LICENSE file or run this program with the -l or --License options, for more details."
+    },
+    "scripts": {
+        "todo": "node ./src/cli.js"
+    },
+    "bin": {
+        "todo": "./src/cli.js",
+        "t": "./src/cli.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mattseemon/todo.txt-cli-node.git"
+    },
+    "keywords": [
+        "todo-txt",
+        "cli",
+        "command-line-interface",
+        "node-js"
+    ],
+    "author": "Matt Seemon",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mattseemon/todo.txt-cli-node/issues"
+    },
+    "homepage": "https://github.com/mattseemon/todo.txt-cli-node#readme",
+    "dependencies": {
+        "chalk": "^2.4.2",
+        "cli-format": "^3.0.9",
+        "columnify": "^1.5.4",
+        "dateformat": "^3.0.3",
+        "fs-extra": "^8.1.0",
+        "merge-json": "0.1.0-b.3",
+        "readline-sync": "^1.4.10",
+        "string-format": "^2.0.0",
+        "string-kit": "^0.9.10",
+        "strip-ansi": "^5.2.0",
+        "underscore": "^1.9.1",
+        "winston": "^3.2.1",
+        "winston-daily-rotate-file": "^3.10.0"
+    }
+}
