@@ -20,6 +20,15 @@ getActionAlias = (act) => {
     return "";
 }
 
+isJSONFile = (filename) => {
+    try {
+        JSON.parse(fs.readFileSync(filename));
+        return true;
+    }
+    catch {}
+    return false;
+}
+
 exports.parse = (args) => {
     processOption = (item) => {
         let opt = getOptionAlias(item);
@@ -28,16 +37,20 @@ exports.parse = (args) => {
                 case 'Config':
                     let configPath = args.shift();
                     if(!configPath) {
-                        throw chalk`Missing config file`;
-                    }
-
-                    if(fs.lstatSync(configPath).isDirectory()) {
-                        configPath += "\\todo.config.json";
+                        throw `Missing config file`;
                     }
 
                     let configPathAbsolute = path.resolve(process.cwd(), configPath);
                     if(!fs.existsSync(configPathAbsolute)) {
-                        throw chalk`Invalid config file path: '{blue ${configPath}}'`;
+                        throw `Invalid config file path: '{blue ${configPath}}'`;
+                    }
+
+                    if(fs.lstatSync(configPathAbsolute).isDirectory()) {
+                        configPath += (configPath.endsWith('\\') ? '' : '\\') + 'todo.config.json';
+                    }
+
+                    if(!isJSONFile(configPathAbsolute)) {
+                        throw `Invalid config file '{blue ${configPath}}'`;
                     }
                     options[opt.option] = configPathAbsolute;
                     break;
@@ -46,14 +59,14 @@ exports.parse = (args) => {
                     if(opt.values.includes(sortOption)) {
                         options[opt.option] = sortOption;
                     } else {
-                        throw chalk`Invalid sort option: '{blue ${sortOption}}'`;
+                        throw `Invalid sort option: '{blue ${sortOption}}'`;
                     }
                     break;
                 default:
                     options[opt.option] = true;
             }
         } else {
-            throw chalk`Invalid Option: '{blue ${item}}'`;
+            throw `Invalid Option: '{blue ${item}}'`;
         }
     }
 
@@ -73,7 +86,7 @@ exports.parse = (args) => {
             if(!action) {
                 action = getActionAlias(arg);
                 if(!action) {
-                    throw chalk`Invalid action: '{blue ${action}}'`;
+                    throw `Invalid action: '{blue ${action}}'`;
                 }
             }
             else {

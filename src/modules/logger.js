@@ -33,7 +33,7 @@ const consoleFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const fileFormat = printf(({ level, message, label, timestamp }) => {
-    return JSON.stringify({ source: label, date: dateformat(timestamp, logDateFormat), level, message: stripAnsi(message) }) ;
+    return JSON.stringify({ source: label, date: dateformat(timestamp, logDateFormat), level, message: stripAnsi(this.chalkish`${message}`) });
 });
 
 const logger = createLogger({
@@ -60,8 +60,7 @@ const logger = createLogger({
         })
     ],
     exitOnError: true
-})
-
+});
 
 exports.info = (message) => {
     logger.info(message);
@@ -87,6 +86,7 @@ exports.verbose = (message) => {
     logger.verbose(message);
 }
 
+// https://www.bennadel.com/blog/3295-using-chalk-2-0-s-tagged-template-literals-for-nested-and-complex-styling.htm
 exports.chalkish = (parts, ...substitutions) => {
     let rawResults = [], cookedResults = [];
 

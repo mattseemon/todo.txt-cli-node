@@ -12,35 +12,35 @@ const package = require('../../package');
 const strings = require('../config/todo.strings');
 
 const defaultConfig = {
-    "Path" : process.cwd(),
-    "Verbose" : false,
-    "Confirm" : true,
-    "AutoArchive" : false,
-    "PreserveLineNumbers" : false,
-    "DateOnAdd" : true,
-    "PriorityOnAdd": false,
-    "ShowHeaders": false,
-    "HideContexts" : false,
-    "HideProjects" : false,
-    "HidePriorities" : false,
-    "NoColors" : false,
-    "DefaultSort" : "Item",
-    "DefaultPriority": "D",
-    "Colors" : {
-        "PriorityA" : "yellow",
-        "PriorityB" : "green",
-        "PriorityC" : "cyan",
-        "PriorityX" : "bold.gray",
-        "Notification" : "green",
-        "Verbose" : "bold.Cyan",
-        "Error" : "red",
-        "Default" : "white",
-        "Filtered" : "bold.yellow"
+    Path: process.cwd(),
+    Verbose : false,
+    Confirm : true,
+    AutoArchive : false,
+    PreserveLineNumbers : false,
+    DateOnAdd : true,
+    PriorityOnAdd: false,
+    ShowHeaders: false,
+    HideContexts : false,
+    HideProjects : false,
+    HidePriorities : false,
+    NoColors : false,
+    DefaultSort : 'Item',
+    DefaultPriority: 'D',
+    Colors : {
+        PriorityA : 'yellow',
+        PriorityB : 'green',
+        PriorityC : 'cyan',
+        PriorityX : 'white.bold',
+        PriorityNone: 'white',
+        Completed: 'gray',
+        Notification : 'green',
+        Verbose : 'cyan.bold',
+        Error : 'red',
+        Default : 'white',
+        Filtered : 'yellow.bold',
+        Prioritized: 'yellowBright'
     }
 };
-
-// https://www.bennadel.com/blog/3295-using-chalk-2-0-s-tagged-template-literals-for-nested-and-complex-styling.htm
-
 
 exports.showHelp = (actionName) => {
     this.showBanner();
@@ -206,7 +206,7 @@ exports.showLicense = () => {
 exports.initialize = (command) => {
     try{
         if(!fs.existsSync(command.Options.Config)) {
-            log.warn(`Config file '{blue ${command.Options.Config.replace(/\\/g, '\\\\')}}' not found. Creating config file with default properties.`);
+            log.warn(`Config file '{blue ${command.Options.Config}}' not found. Creating config file with default properties.`);
             fs.writeFileSync(command.Options.Config, JSON.stringify(defaultConfig));
         }
 
@@ -290,7 +290,7 @@ exports.prompt = (options) => {
                 console.log(cliFormat.wrap(log.chalkish`{gray ${item}}`, { width: 80, paddingLeft: '       ' }));
             });
         }
-        answer = readline.question(cliFormat.wrap(log.chalkish`${label}:  `, { width: 80, paddingLeft: '       ' }), (defaultAnswer ? { defaultInput: defaultAnswer} : {}));
+        answer = readline.question(cliFormat.wrap(log.chalkish`${label}: `, { width: 80, paddingLeft: '       ', paddingRight: ' ' }), (defaultAnswer ? { defaultInput: defaultAnswer} : {}));
         if(!options.CaseSensitive) {
             answer = answer.toLocaleLowerCase();
         }
@@ -298,6 +298,11 @@ exports.prompt = (options) => {
     
     console.log('');
     return answer;
+}
+
+exports.getFilenameUpper = function(filepath) {
+    var filename = path.basename(filepath);
+    return filename.substring(0, filename.lastIndexOf('.')).toUpperCase();
 }
 
 exports.cleanFile = (file) => {

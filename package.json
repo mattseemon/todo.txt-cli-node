@@ -1,6 +1,6 @@
 {
     "name": "todo.txt-cli-node",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A cross platform command line interface for todo.txt.",
     "main": "src/cli.js",
     "application": {

@@ -1,7 +1,7 @@
 <h1 align="center">TODO.TXT Command Line Interface (CLI)</h1>
 
 <p align="center">
-    <a href="https://mattseemon.in/" rel="noopener"><img width="150px" height="150px" src="./assets/avatar.svg" alt="Matt Seemon" /></a>
+    <img width="150px" height="150px" src="./assets/checked.png" alt="TODO.TXT Command Line Interface (CLI)" title="TODO.TXT Command Line Interface (CLI)" />
 </p>
 
 <p align="center"> A cross platform command line interface for todo.txt. <br/></p>
@@ -43,8 +43,10 @@ For details of the todo.txt Format and the original todo.txt-cli see links below
  * [todo.txt-cli](https://github.com/todotxt/todo.txt-cli)
 
 
+Icon made by [Maxim Basinski](https://www.flaticon.com/authors/maxim-basinski) from [www.flaticon.com](https://www.flaticon.com/)
+
 ## License <a name="license"></a>
-The source code in this repository is covered under the MIT License listed [here](license]). Feel free to use this in your own projects with attribution!
+The source code in this repository is covered under the MIT License listed [here](license). Feel free to use this in your own projects with attribution!
 
 > Copyright (c) 2019 Matt Seemon
 >  
