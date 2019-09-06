@@ -1,7 +1,7 @@
-const strings = require('../config/todo.strings');
-const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs-extra');
+
+const { strings } = require('./strings');
 
 getOptionAlias = (opt) => {
     return strings.usage.options.find(obj => {
@@ -72,28 +72,32 @@ exports.parse = (args) => {
 
     let action = '', options = [], parameters = [];
 
-    let arg = args.shift();
-    while(arg) {
-        if(arg.startsWith('--')) {
-            processOption(arg.replace('--', ''));
-        } else if (arg.startsWith('-')) {
-            let opts = arg.split('');
-            opts.shift();
-            opts.forEach(item => {
-                return processOption(item);
-            });
-        } else {
-            if(!action) {
-                action = getActionAlias(arg);
+    if(args.length > 0) {
+        let arg = args.shift();
+        while(arg) {
+            if(arg.startsWith('--')) {
+                processOption(arg.replace('--', ''));
+            } else if (arg.startsWith('-')) {
+                let opts = arg.split('');
+                opts.shift();
+                opts.forEach(item => {
+                    return processOption(item);
+                });
+            } else {
                 if(!action) {
-                    throw `Invalid action: '{blue ${action}}'`;
+                    action = getActionAlias(arg);
+                    if(!action) {
+                        throw `Invalid action: '{blue ${arg}}'`;
+                    }
+                }
+                else {
+                    parameters.push(arg);
                 }
             }
-            else {
-                parameters.push(arg);
-            }
+            arg = args.shift();
         }
-        arg = args.shift();
+    } else {
+        action = 'list';
     }
 
     return {

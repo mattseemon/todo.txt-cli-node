@@ -9,7 +9,7 @@ const os = require('os');
 
 const log = require('./logger');
 const package = require('../../package');
-const strings = require('../config/todo.strings');
+const { strings } = require('./strings');
 
 const defaultConfig = {
     Path: process.cwd(),
@@ -23,6 +23,7 @@ const defaultConfig = {
     HideContexts : false,
     HideProjects : false,
     HidePriorities : false,
+    IgnoreCase: false,
     NoColors : false,
     DefaultSort : 'Item',
     DefaultPriority: 'D',
@@ -197,7 +198,7 @@ exports.showVersion = () => {
 
 exports.showLicense = () => {
     this.showBanner();
-    let data = fs.readFileSync('./LICENSE');
+    let data = fs.readFileSync(require.resolve('../../LICENSE')).toString();
     console.log(cliFormat.wrap(log.chalkish`{white ${data.toString()}}`, { width: 80 }));
     console.log('');
     process.exit(1);
@@ -232,6 +233,8 @@ exports.initialize = (command) => {
         config.HideProjects = (command.Options.HideProjects ? true : config.HideProjects);
         config.HidePriorities = (command.Options.HidePriorities ? true : config.HidePriorities);
         config.NoColors = (command.Options.NoColors ? true : config.NoColors);
+        config.IgnoreCase = (command.Options.IgnoreCase ? true : config.IgnoreCase);
+        config.SortBy = (command.Options.SortBy ? command.Options.SortBy : config.DefaultSort);
 
         return config;
     }
@@ -324,3 +327,10 @@ const isJSONFile = (filename) => {
     catch {}
     return false;
 }
+
+Date.prototype.toTodoDate = () => {
+    let mm = this.getMonth() + 1; // getMonth() is zero-based
+    let dd = this.getDate();
+  
+    return [this.getFullYear(), (mm>9 ? '' : '0') + mm, (dd>9 ? '' : '0') + dd].join('-');
+};

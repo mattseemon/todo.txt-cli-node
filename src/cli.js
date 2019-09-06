@@ -50,6 +50,27 @@ const run = () => {
 
     let input = '';
     switch(command.Action) {
+        case 'add':
+            if(command.Arguments.length == 0 && global.config.Confirm) {
+                input = readline.question(log.chalkish`   {bgWhite {black  i }} {reset Add Task:} `);
+            } else {
+                input = command.Arguments.join(' ');
+            }
+
+            todo.add({ todoPath: global.config.TODO_FILE, item: input });
+            break;
+        case 'addm':
+            if(command.Arguments.length == 0 && global.config.Confirm) {
+                input = readline.question(log.chalkish`   {bgWhite {black  i }} {reset Add Task:} `);
+                if(input.length == 0) {
+                    console.log('');
+                    helper.showHelp('addm');
+                }
+            } else {
+                input = command.Arguments.join(' ');
+            }
+            todo.addMultiple({ todoPath: global.config.TODO_FILE, items: input });
+            break;
         case 'list':
             todo.showTodos({ search: command.Arguments });
             break;
@@ -66,6 +87,12 @@ const run = () => {
                 }
             }
             todo.showTodos({ search: command.Arguments, priorities: priorities });
+            break;
+        case 'listcon':
+            todo.showContexts({ search: command.Arguments });
+            break;
+        case 'listproj':
+            todo.showProjects({ search: command.Arguments });
             break;
         default:
             log.info(`'{yellow ${command.Action}}' feature not implemented yet.`);
