@@ -43,7 +43,7 @@
         "string-format": "^2.0.0",
         "string-kit": "^0.9.10",
         "strip-ansi": "^5.2.0",
-        "underscore": "^1.9.1",
+        "underscore": "^1.12.1",
         "winston": "^3.2.1",
         "winston-daily-rotate-file": "^3.10.0"
     }
